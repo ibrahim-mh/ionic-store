@@ -31,11 +31,20 @@
   </div>
 
   <div class="category-slider ion-padding-start">
-    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }" *ngIf="!loadingCategories">
       <ion-slide *ngFor="let category of categories">
         <ion-col>
           <h4>{{ category.name }}</h4>
-          <img src="{{ category.image }}" />
+          <ion-img src="{{ category.image }}" ></ion-img>
+        </ion-col>
+      </ion-slide>
+    </ion-slides>
+    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }" *ngIf="loadingCategories">
+      <ion-slide *ngFor="let category of [1,2,3]">
+        <ion-col>
+          <ion-thumbnail style="width:'100%'; height:'100px'">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-thumbnail>
         </ion-col>
       </ion-slide>
     </ion-slides>
@@ -47,12 +56,23 @@
   </div>
 
   <div class="product-slider ion-padding-start">
-    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }" *ngIf="!loadingbestSellProducts">
       <ion-slide *ngFor="let product of featuredProducts">
         <ion-col class="ion-text-left" routerLink="/item-details" routerDirection="forward">
-          <img src="{{ product.image }}" />
+          <ion-img src="{{ product.image }}"></ion-img>
           <p>${{ product.price }}</p>
-          <h6>{{ product.name }}</h6>
+          <h6>{{ product.title }}</h6>
+        </ion-col>
+      </ion-slide>
+    </ion-slides>
+    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }" *ngIf="loadingbestSellProducts">
+      <ion-slide *ngFor="let product of [1,2,3]">
+        <ion-col class="ion-text-left">
+          <ion-thumbnail style="width:'100%'; height:'200px'">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-thumbnail>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
         </ion-col>
       </ion-slide>
     </ion-slides>
@@ -64,12 +84,23 @@
   </div>
 
   <div class="product-slider ion-padding-start">
-    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }">
+    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }"  *ngIf="!loadingfeaturedProducts">
       <ion-slide *ngFor="let product of bestSellProducts">
         <ion-col class="ion-text-left" routerLink="/item-details" routerDirection="forward">
-          <img src="{{ product.image }}" />
+          <ion-img src="{{ product.image }}" ></ion-img>
           <p>${{ product.price }}</p>
-          <h6>{{ product.name }}</h6>
+          <h6>{{ product.title }}</h6>
+        </ion-col>
+      </ion-slide>
+    </ion-slides>
+    <ion-slides [options]="{ slidesPerView: 'auto', zoom: false, grabCursor: true }"  *ngIf="loadingfeaturedProducts">
+      <ion-slide *ngFor="let product of [1,2,3]">
+        <ion-col class="ion-text-left"  >
+          <ion-thumbnail style="width:'100%'; height:'200px'">
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-thumbnail>
+          <ion-skeleton-text animated></ion-skeleton-text>
+          <ion-skeleton-text animated></ion-skeleton-text>
         </ion-col>
       </ion-slide>
     </ion-slides>

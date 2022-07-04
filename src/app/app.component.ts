@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { UtilService } from './util.service';
 import { menuController } from '@ionic/core';
 import { Router } from '@angular/router';
+import { UtilService } from 'src/services/util.service';
 
 @Component({
   selector: 'app-root',

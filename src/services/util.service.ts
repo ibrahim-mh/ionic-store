@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
 export class UtilService {
 
   private isMenuEnabled = new Subject<boolean>();
-
+  private BaseURL = "https://fakestoreapi.com";
   constructor() { }
 
   // Creating method to handle Side Menu State (Enabled or Disabeld)
@@ -18,5 +18,9 @@ export class UtilService {
   // Method for get the Menu State
   getMenuState(): Subject<boolean> {
     return this.isMenuEnabled;
+  }
+
+  getBaseURL():string{
+    return this.BaseURL;
   }
 }
