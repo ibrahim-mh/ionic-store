@@ -15,7 +15,7 @@ export class DataService {
     return Math.floor(Math.random() * (max - min) +min)
   }
 
-  getCategories():Observable<any> {
+  getCategories():Observable<Array<ICategory>> {
     return this.http.get(`${this.util.getBaseURL()}/products/categories`).pipe(
       map((results:[]) => results.map((v,index)=>{ 
         let temp: ICategory = {
@@ -27,12 +27,12 @@ export class DataService {
       })));
   }
 
-  getFeaturedProducts() {
+  getFeaturedProducts():Observable<Array<IProduct>> {
     return this.http.get(`${this.util.getBaseURL()}/products`).pipe(
       map((results:Array<IProduct>)=> {return results}));
   }
 
-  getBestSellProducts() {
+  getBestSellProducts():Observable<Array<IProduct>> {
     return this.http.get(`${this.util.getBaseURL()}/products/category/jewelery`).pipe(
       map((results:Array<IProduct>)=> {return results}));
   }
