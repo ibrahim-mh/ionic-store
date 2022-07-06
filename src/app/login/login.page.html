@@ -11,22 +11,34 @@
 <ion-content class="ion-padding">
   <div class="ion-padding container">
     <h1>Login</h1>
-
     <div class="form-container">
-      <ion-item>
-        <ion-label position="floating">Email</ion-label>
-        <ion-input></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <ion-input type="password"></ion-input>
-        <ion-icon name="eye" slot="end"></ion-icon>
-      </ion-item>
+      <form (ngSubmit)="login(loginform.value)" [formGroup]="loginform">
+        <ion-item>
+          <ion-label position="floating">User name</ion-label>
+          <ion-input [(ngModel)]="loginObj.username" formControlName="username" name="username"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input  [(ngModel)]="loginObj.password" formControlName="password" name="password" type="password"></ion-input>
+          <ion-icon name="eye" slot="end"></ion-icon>
+        </ion-item>
 
-      <ion-button expand="block" class="main-button" (click)="login()">Log in</ion-button>
-
+        <ion-button expand="block" class="main-button" type="submit" [disabled]="loading || (loginform.status !=='VALID')">
+          <ion-spinner *ngIf="loading"></ion-spinner>
+         <ion-label *ngIf="!loading">Log in</ion-label> 
+        </ion-button>
+      </form> 
       <div class="sign-up">
         Don't have an account? <ion-button color="dark" fill="clear" routerLink="/signup" routerDirection="forward">Sign up</ion-button>
+      </div>
+      <div class="sign-up">
+        <ion-label>
+          You can use this credentials: 
+          <br>
+          <b>Username:</b> johnd
+          <br>
+          <b>Password:</b> m38rmF$
+        </ion-label>
       </div>
     </div>
   </div>

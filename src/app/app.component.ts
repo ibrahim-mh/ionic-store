@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { menuController } from '@ionic/core';
 import { Router } from '@angular/router';
 import { UtilService } from 'src/services/util.service';
+import { UserService } from 'src/services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private util: UtilService,
     private router: Router,
+    private userService:UserService,
   ) {
     this.initializeApp();
   }
@@ -35,7 +37,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.selectedIndex = 1;
-    
+    this.userService.getUserInfo().subscribe((user)=>{
+      console.log(user);
+      if(!user){
+        this.router.navigate(['login']);
+      }
+      else {
+        this.router.navigate(['']);
+      }
+    })
     this.util.getMenuState().subscribe(menuState => {
       this.isMenuEnabled = menuState;
     });

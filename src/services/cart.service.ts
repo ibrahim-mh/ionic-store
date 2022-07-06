@@ -14,8 +14,16 @@ export class CartService {
 
   constructor(private http: HttpClient,private util:UtilService) { }
 
-  getCart(userId):Observable<Array<ICart>> {
+  private getCarts(userId):Observable<Array<ICart>> {
     return this.http.get(`${this.util.getBaseURL()}/carts/user/${userId}`).pipe(
       map((results:Array<ICart>) => results));
+  }
+  private newCart(cart:ICart):Observable<ICart> {
+    return this.http.post(`${this.util.getBaseURL()}/carts/`,cart).pipe(
+      map((result:ICart) => result));
+  }
+  private updateCart(cart:ICart):Observable<ICart> {
+    return this.http.put(`${this.util.getBaseURL()}/carts/${cart.id}`,cart).pipe(
+      map((result:ICart) => result));
   }
 }

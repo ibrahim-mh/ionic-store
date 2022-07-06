@@ -11,9 +11,6 @@ import { UtilService } from './util.service';
 })
 export class DataService {
   constructor(private http: HttpClient,private util:UtilService) { }
-  private getrandom(min,max){
-    return Math.floor(Math.random() * (max - min) +min)
-  }
 
   getCategories():Observable<Array<ICategory>> {
     return this.http.get(`${this.util.getBaseURL()}/products/categories`).pipe(
@@ -21,7 +18,7 @@ export class DataService {
         let temp: ICategory = {
           id: index,
           name: v,
-          image: `./assets/categories/category-${this.getrandom(1,4)}.png`
+          image: `./assets/categories/category-${this.util.getr(1,4)}.png`
         }  
         return temp;
       })));

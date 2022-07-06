@@ -3,7 +3,7 @@ import { ICategory } from 'src/models/ICategory';
 import { IProduct } from 'src/models/IProduct';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { UtilService } from './util.service';
 import { IUser } from 'src/models/IUser';
 
@@ -12,16 +12,20 @@ import { IUser } from 'src/models/IUser';
 })
 export class UserService {
 
-  constructor(private http: HttpClient,private util:UtilService) { }
-
-  private user = new Subject<IUser>();
+  constructor(private http: HttpClient,private util:UtilService) {
+    let token = localStorage.getItem('token');
+    if(token){
+      this.setUserInfo().toPromise();
+    }
+   }
+  private user = new BehaviorSubject<IUser>(null);
   login(username,password):Observable<any> {
-    return this.http.post(`${this.util.getBaseURL()}/auth/login`,JSON.stringify({
-      username: username,
-      password: password
-  })).pipe(map((result:{token:string}) => {
+    return this.http.post(`${this.util.getBaseURL()}/auth/login`,{
+      username,
+      password
+  }).pipe(map((result:{token:string}) => {
         localStorage.setItem('token',result.token);
-        return this.setUserInfo().toPromise();
+        return this.setUserInfo().toPromise(); 
       }));
   }
 
@@ -31,7 +35,10 @@ export class UserService {
   }
 
   getUserInfo() {
-    return this.http.get(`${this.util.getBaseURL()}/products/category/jewelery`).pipe(
-      map((results:Array<IProduct>)=> {return results}));
+    return this.user;
+  }
+  logout(){
+    localStorage.removeItem('token');
+    this.user.next(null);
   }
 }

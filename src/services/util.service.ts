@@ -23,4 +23,8 @@ export class UtilService {
   getBaseURL():string{
     return this.BaseURL;
   }
+  getr(min,max){//random
+    return Math.floor(Math.random() * (max - min) +min)
+  }
+
 }
